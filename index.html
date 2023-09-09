@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusiCloud</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css" integrity="sha512-9YHSK59/rjvhtDcY/b+4rdnl0V4LPDWdkKceBl8ZLF5TB6745ml1AfluEU6dFWqwDw9lPvnauxFgpKvJqp7jiQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&family=Merriweather&family=Montserrat:wght@400;500&family=Oswald:wght@300&family=PT+Serif:wght@700&family=Poppins:wght@200&family=Raleway:wght@500&family=Sacramento&family=Wix+Madefor+Display:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="o">
+        <div class="topnav">
+            <div class="home">
+                <i><img class="img1" src="assets/images/music.png" height="30px" weight="30px" alt=""></i>
+                <h1 class="frontHero__logo" title="SoundCloud wishes peace and safety for our community in Ukraine">
+                    MUSICLOUD</h1>
+            </div>
+            <div class="other">
+                <a href="signin.html">Sign in</a>
+                <a href="signup.html"> <button class="create_acc">Create account</button></a>
+                <a href="https://artists.soundcloud.com/" class="ac">For artists</a>
+            </div>
+        </div>
+        <div class="frontHero__content">
+            <h2 class="frontHero__title">Connect on MusiCloud</h2>
+            <p class="frontHero__tagline">
+                Discover, stream, and share a constantly expanding mix<br> of music from emerging and major artists
+                around the world.
+            </p>
+            <div class="frontHero__cta">
+                <a href="signup.html"><button type="button" tabindex="0" title="Create a SoundCloud account"
+                        aria-label="Create a SoundCloud account" onclick="">Sign up for free</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="dd">
+        <form action="">
+            <input class="in" type="search" placeholder="Search for artists, bands, tracks, podcasts">
+            <button class="search" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <div class="head">
+        <h2 class="ww">Hear what’s trending for free in the MusiCloud community</h2>
+    </div>
+    <audio id="audio_play">
+        <source src="" type="audio/">
+    </audio>
+
+    <div class="container">
+        <div class="grid" id="card-container">
+            <!-- Add more cards here with different images and song names -->
+        </div>
+    </div>
+
+    <section role="contentinfo" aria-label="miniplayer" class="miniplayer">
+        <div class="miniplayer__left">
+            <div class="miniplayer__info">
+                <div class="miniplayer__title">Song Title</div>
+                <div class="miniplayer__artist">Artist</div>
+            </div>
+        </div>
+        <input type="range" class="miniplayer__slider miniplayer__progress" min="0" max="100" step="0.1" value="0">
+        <div class="miniplayer__controls">
+            <button class="miniplayer__button miniplayer__prev"><i class="fas fa-backward"></i></button>
+            <button class="miniplayer__button miniplayer__play"><i class="fas fa-play"></i></button>
+            <button class="miniplayer__button miniplayer__next"><i class="fas fa-forward"></i></button>
+            <input type="range" class="miniplayer__slider miniplayer__volume" min="0" max="1" step="0.1" value="1">
+        </div>
+    </section>
+
+    <script>
+        // Mini Player
+        var currentAudioPlayer = null;
+        var currentIndex = 0;
+        var isPlaying = false; 
+        var songs = [
+            {
+                title: "Shape of You",
+                artist: "Ed Sheeran",
+                imagePath: "assets/images/1.jpeg",
+                audioPath: "assets/audio/1.mp3",
+                audioId: "audio-player3"
+            },
+
+            {
+                title: "Blinding Lights",
+                artist: "The Weeknd",
+                imagePath: "assets/images/2.jpeg",
+                audioPath: "assets/audio/2.mp3",
+                audioId: "audio-player6"
+            },
+            {
+                title: "Don't Start Now",
+                artist: "Dua Lipa",
+                imagePath: "assets/images/3.jpeg",
+                audioPath: "assets/audio/3.mp3",
+                audioId: "audio-player8"
+            },
+            {
+                title: "Someone Like You",
+                artist: "Adele",
+                imagePath: "assets/images/4.jpeg",
+                audioPath: "assets/audio/4.mp3",
+                audioId: "audio-player10"
+            },
+            {
+                title: "Uptown Funk",
+                artist: "Mark Ronson ft. Bruno Mars",
+                imagePath: "assets/images/5.jpeg",
+                audioPath: "assets/audio/5.mp3",
+                audioId: "audio-player11"
+            },
+            {
+                title: "Can't Stop the Feeling!",
+                artist: "Justin Timberlake",
+                imagePath: "assets/images/6.jpeg",
+                audioPath: "assets/audio/6.mp3",
+                audioId: "audio-player12"
+            },
+            {
+                title: "Shallow",
+                artist: "Lady Gaga and Bradley Cooper",
+                imagePath: "assets/images/7.jpeg",
+                audioPath: "assets/audio/7.mp3",
+                audioId: "audio-player13"
+            },
+            {
+                title: "Havana",
+                artist: "Camila Cabello ft. Young Thug",
+                imagePath: "assets/images/8.jpeg",
+                audioPath: "assets/audio/8.mp3",
+                audioId: "audio-player14"
+            },
+            {
+                title: "Shape of My Heart",
+                artist: "Sting",
+                imagePath: "assets/images/9.jpeg",
+                audioPath: "assets/audio/9.mp3",
+                audioId: "audio-player15"
+            },
+            {
+                title: "Rolling in the Deep",
+                artist: "Adele",
+                imagePath: "assets/images/10.jpeg",
+                audioPath: "assets/audio/10.mp3",
+                audioId: "audio-player16"
+            }            // Add more songs here
+        ];
+
+        // Assuming you have a container element with id "card-container" where you want to append the generated cards
+        var container = document.getElementById("card-container");
+
+        // Create a function to generate a card
+        function generateCard(title, artist, imagePath, audioPath, audioId) {
+            // Create card container
+            var cardContainer = document.createElement("div");
+            cardContainer.classList.add("card");
+
+            // Create audio container
+            var audioContainer = document.createElement("div");
+            audioContainer.classList.add("audio-container");
+
+            // Create image element
+            var imgElement = document.createElement("img");
+            imgElement.src = imagePath;
+            imgElement.alt = "Image";
+            imgElement.addEventListener("click", function () {
+                toggleAudio(audioId, title, artist);
+            });
+            audioContainer.appendChild(imgElement);
+
+            // Create audio element
+            var audioElement = document.createElement("audio");
+            audioElement.classList.add("play-button");
+            audioElement.id = audioId;
+            audioElement.controls = true;
+            audioElement.hidden = true;
+            var sourceElement = document.createElement("source");
+            sourceElement.src = audioPath;
+            sourceElement.type = "audio/mpeg";
+            audioElement.appendChild(sourceElement);
+            audioContainer.appendChild(audioElement);
+
+            // Create button element
+            var buttonElement = document.createElement("button");
+            buttonElement.classList.add("play-button");
+            buttonElement.id = "play-button" + audioId.slice(-1);
+            buttonElement.addEventListener("click", function () {
+                toggleAudio(audioId, title, artist);
+            });
+            var iconElement = document.createElement("i");
+            iconElement.classList.add("fas", "fa-play");
+            buttonElement.appendChild(iconElement);
+            audioContainer.appendChild(buttonElement);
+
+            // Append audio container to the card container
+            cardContainer.appendChild(audioContainer);
+
+            // Create song name paragraph
+            var songNameElement = document.createElement("p");
+            songNameElement.classList.add("song-name");
+            songNameElement.textContent = title;
+            cardContainer.appendChild(songNameElement);
+
+            // Append the card to the container
+            container.appendChild(cardContainer);
+        }
+
+        // Example usage to generate a card dynamically
+        for (var i = 0; i < songs.length; i++) {
+            var song = songs[i];
+            generateCard(song.title, song.artist, song.imagePath, song.audioPath, song.audioId);
+        }
+
+
+
+        function toggleAudio(playerId, title, artist) {
+            var audioPlayer = document.getElementById(playerId);
+            var playButton = document.getElementById("play-button" + playerId.slice(-1));
+
+            if (currentAudioPlayer && currentAudioPlayer !== audioPlayer) {
+                currentAudioPlayer.pause();
+                var currentPlayButton = document.getElementById(
+                    "play-button" + currentAudioPlayer.id.slice(-1)
+                );
+                currentPlayButton.innerHTML = '<i class="fas fa-play"></i>';
+            }
+
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playButton.innerHTML = '<i class="fas fa-pause"></i>';
+
+            } else {
+                audioPlayer.pause();
+                playButton.innerHTML = '<i class="fas fa-play"></i>';
+            }
+
+            currentAudioPlayer = audioPlayer;
+            currentIndex = songs.findIndex(song => song.audioId === playerId); // Update the currentIndex
+
+            updateMiniPlayer(title, artist); // Update the mini player with the new title and artist
+        }
+
+        function updateMiniPlayer(title, artist) {
+            var miniplayerTitle = document.querySelector(".miniplayer__title");
+            var miniplayerArtist = document.querySelector(".miniplayer__artist");
+
+            miniplayerTitle.textContent = title;
+            miniplayerArtist.textContent = artist;
+        }
+
+        // Attach click event listeners to songs and images
+        var songElements = document.querySelectorAll(".song");
+        songElements.forEach(function (songElement) {
+            songElement.addEventListener("click", function (e) {
+                var title = e.currentTarget.dataset.title;
+                var artist = e.currentTarget.dataset.artist;
+                var audioId = e.currentTarget.dataset.audioId;
+                toggleAudio(audioId, title, artist);
+            });
+        });
+
+        var imageElements = document.querySelectorAll(".song img");
+        imageElements.forEach(function (imageElement) {
+            imageElement.addEventListener("click", function (e) {
+                var title = e.currentTarget.parentElement.dataset.title;
+                var artist = e.currentTarget.parentElement.dataset.artist;
+                var audioId = e.currentTarget.parentElement.dataset.audioId;
+                toggleAudio(audioId, title, artist);
+            });
+        });
+        // Mini Player
+ // Track the playing state of the audio
+ 
+
+
+        function playNextSong() {
+            currentIndex++;
+            if (currentIndex >= songs.length) {
+                currentIndex = 0;
+            }
+            var audioId = songs[currentIndex].audioId;
+            toggleAudio(audioId);
+        }
+
+        function playPreviousSong() {
+            currentIndex--;
+            if (currentIndex < 0) {
+                currentIndex = songs.length - 1;
+            }
+            var audioId = songs[currentIndex].audioId;
+            toggleAudio(audioId);
+        }
+
+        function updateMiniPlayer() {
+            var miniplayerTitle = document.querySelector(".miniplayer__title");
+            var miniplayerArtist = document.querySelector(".miniplayer__artist");
+
+            miniplayerTitle.textContent = songs[currentIndex].title;
+            miniplayerArtist.textContent = songs[currentIndex].artist;
+        }
+
+        function seekTo(value) {
+            var audioPlayer = currentAudioPlayer;
+            var seekTime = (value / 100) * audioPlayer.duration;
+            audioPlayer.currentTime = seekTime;
+        }
+
+        function changeVolume(value) {
+            var audioPlayer = currentAudioPlayer;
+            audioPlayer.volume = value;
+        }
+
+        function updateSlider() {
+            var audioPlayer = currentAudioPlayer;
+            var progressSlider = document.querySelector(".miniplayer__progress");
+            var progressValue = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressSlider.value = progressValue;
+        }
+
+        document.querySelector(".miniplayer__prev").addEventListener("click", playPreviousSong);
+        const play = document.querySelector(".miniplayer__play")
+        document.querySelector(".miniplayer__play").addEventListener("click", function () {
+            var currentAudioId = songs[currentIndex].audioId;
+            toggleAudio(currentAudioId);
+            if (play.innerHTML == '<i class="fas fa-pause"></i>') {
+                play.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                play.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        });
+        document.querySelector(".miniplayer__next").addEventListener("click", playNextSong);
+
+        document.querySelector(".miniplayer__progress").addEventListener("input", function (e) {
+            var progressValue = e.target.value;
+            seekTo(progressValue);
+        });
+
+        document.querySelector(".miniplayer__volume").addEventListener("input", function (e) {
+            var volumeValue = e.target.value;
+            changeVolume(volumeValue);
+        });
+
+        // Update slider every second
+        setInterval(updateSlider, 1000);
+    </script>
+    <div class="frontHero__cta1">
+        <a href="https://soundcloud.com/discover"><button type="button" tabindex="0" title="Create a SoundCloud account"
+            aria-label="Create a SoundCloud account">Explore trending playlists</button></a>
+    </div>
+    <div class="img_div"><img class="img2" src="assets/images/img2.jpg" alt=""></div>
+    <div class="x_div">
+        <div>
+            <h2>Never stop listening</h2>
+            <hr>
+            <p>MusiCloud is available on<br> Web, iOS, Android, Sonos,<br> Chromecast, and Xbox One.</p>
+            <a href="https://apps.apple.com/us/app/soundcloud/id336353151"><button class="dbutton" type="button"><i class="fa fa-apple"></i>Download</button></a>
+            <a href="https://play.google.com/store/apps/details?id=com.soundcloud.android&hl=us"><button class="dbutton" type="button"><img src="assets/images/google-play.png"
+                    height="20px">Download</button></a>
+        </div>
+    </div>
+
+    <div class="w_con">
+        <div class="m_con">
+            <h1 class="hf">Calling all creators</h1>
+            <h2 class="we_h">Get on MusiCloud to connect with fans,<br>share your sounds, and grow your<br> audience.
+                What are you waiting for?</h2>
+            <a href="https://community.soundcloud.com/playbook-articles/introducing-the-new-dashboard-on-soundcloud-for-artists"><button class="b_butt">Find out more</button></a>
+        </div>
+        <div class="y_div">
+            <img src="assets/images/main.jpg" height="300px" alt="">
+        </div>
+    </div>
+    <div class="mask1">
+        <img src="assets/images/g.jpg" alt="Cinque Terre" width="500" height="500">
+    </div>
+    <div class="z_div">
+        <h1 class="hd">Thanks for listening. Now join in.</h1>
+        <h5 class="h_d">Save tracks, follow artists and build playlists. All for free.</h5>
+        <a href="signup.html"><button class="b_b">Create account</button></a>
+        <a href="signin.html">
+            <p class="p1">Already have an account?</p>
+        </a> <a href="signin.html"><button class="b_b1">Sign in</button></a>
+    </div>
+    <div class="l-footer sc-text-verylight sc-text-secondary marketing sc-border-light-top">
+        <hr> <a class="sc-link-verylight sc-link-secondary" href="https://soundcloud.com/people/directory" title="People directory">Directory
+            -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://soundcloud.com/pages/contact" title="About SoundCloud">About us
+            -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://artists.soundcloud.com/" target="_blank"
+            title="Artist Resources">Artist Resources -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="//blog.soundcloud.com" target="_blank"
+            title="SoundCloud blog">Blog -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="//soundcloud.com/jobs" target="_blank"
+            title="Jobs at SoundCloud">Jobs -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://developers.soundcloud.com/" target="_blank"
+            title="SoundCloud for developers">Developers -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="//help.soundcloud.com" target="_blank"
+            title="SoundCloud help">Help -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://soundcloud.com/terms-of-use" title="Terms of use">Legal -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://soundcloud.com/pages/cookies" title="Privacy policy">Privacy -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://soundcloud.com/pages/cookies" title="Cookie Policy">Cookie Policy
+            -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://soundcloud.com/imprint" title="Company information">Imprint -</a>&nbsp;
+        <a class="sc-link-verylight sc-link-secondary" href="https://soundcloud.com/charts/top" title="Charts">Charts</a>
+        <div class="footer__localeSelector sc-mt-3x"><a type="button" class="localeSelector sc-pointer sc-text-primary"
+                lang="en" tabindex="0" aria-haspopup="true" role="button" aria-owns="dropdown-button-97">Language: <span
+                    class="localeSelector_language sc-text">English (US)</span></a></div>
+    </div>
+</body>
+
+</html>
